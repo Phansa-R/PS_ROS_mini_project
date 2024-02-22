@@ -98,7 +98,9 @@ $ catkin_make
     - GND to GND
   - Stepper into Driver Board
     - A(Black) to 2A
-    
+* schematic diagram
+
+  
 ### Software Ros workspace
 Start a master node in a new terminal:
 ```
