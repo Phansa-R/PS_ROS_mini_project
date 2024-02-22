@@ -98,7 +98,7 @@ $ catkin_make
     - GND to GND
   - Stepper into Driver Board
     - A(Black) to 2A
-* schematic diagram
+* Schematic diagram
 
   
 ### Software Ros workspace
