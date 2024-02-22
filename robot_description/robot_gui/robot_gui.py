@@ -58,7 +58,7 @@ def button_click_event_submit():
     js.header.stamp = rospy.Time.now()
     js.header.frame_id = " "
     js.name = ["joint1" , "joint2"]  # Fill in with the names of your joints
-    js.position = [float(FEEDBACKX_INPUT.cget('text')), float(FEEDBACKY_INPUT.cget('text'))]  # Fill in with the positions of your joints
+    js.position = [float(FEEDBACKY_INPUT.cget('text')), float(FEEDBACKX_INPUT.cget('text'))]  # Fill in with the positions of your joints
     Int16_1 = Float32()
     Int16_1.data = float(FEEDBACKX_INPUT.cget('text'))
     Int16_2 = Float32()
