@@ -58,7 +58,7 @@ def button_click_event_submit():
     js.header.stamp = rospy.Time.now()
     js.header.frame_id = " "
     js.name = ["joint1" , "joint2"]  # Fill in with the names of your joints
-    js.position = [float(FEEDBACKY_INPUT.cget('text')), float(FEEDBACKX_INPUT.cget('text'))]  # Fill in with the positions of your joints
+    js.position = [float(-FEEDBACKY_INPUT.cget('text')*0.051 + (0.16)), float(-FEEDBACKX_INPUT.cget('text')*0.051 + (0.18))]  # Fill in with the positions of your joints
     # js.position = [float(FEEDBACKY.cget('text')), float(FEEDBACKX.cget('text'))]  # Fill in with the positions of your joints
     Int16_1 = Float32()
     Int16_1.data = float(FEEDBACKX_INPUT.cget('text'))
@@ -87,6 +87,7 @@ def setup_event():
 def read_ualtraX(ualtraX_val):
     ultraX_2_read = ualtraX_val.data
     FEEDBACKX.configure(text=ultraX_2_read)
+    
 
 def read_ualtraY(ualtraY_val):
     ultraY_2_read = ualtraY_val.data
