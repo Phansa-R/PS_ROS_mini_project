@@ -12,7 +12,6 @@ Control with Python GUI using Potentiometer and Encoder with Arduino UNO R3.
     - [PART 1 Base](#part-1-base)
     - [PART 2 Joint1 prismatic](#part-2-joint1-prismatic)
     - [PART 3 Joint2 prismatic](#part-3-joint2-prismatic)
-    - [PART 4 Middle Box](#part-4-middle-box)
   - [Component](#component)
     - [Hardware](#hardware)
     - [Software](#software)
@@ -34,12 +33,22 @@ I drew inspiration to design this robot from my experience with 3D printers. Con
 
 ## CAD design
 ### PART 1 Base
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/base.jpg" width=35% height=35%>
+
 ### PART 2 Joint1 prismatic
 (Prismatic using Potentiometer)
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/joint1.jpg" width=35% height=35%>
+
 ### PART 3 Joint2 prismatic
 (Prismatic using Encoder)
-### PART 4 Middle Box
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/joint2.jpg" width=35% height=35%>
+
 ### ASSEMBLY
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/assembly.jpg" width=35% height=35%>
 
 ## Component
 ### Hardware
@@ -117,9 +126,9 @@ Start a master node in a new terminal.
 $ roscore
 ```
 Open new terminal and run this command on your terminal to launch code. Check your serial port on Arduino and replace in `port:="<--YOUR-PORT-->"`.
-For example my serial port is USB0 then it will be `roslaunch robotarm rviz.launch port:="/dev/ttyUSB0"`.
+For example my serial port is USB0 then it will be `roslaunch robot_description robot_launch.launch port:="/dev/ttyUSB0"`.
 ```
-$ roslaunch _____ ____.launch port:="<--YOUR-PORT-->"
+$ roslaunch robot_description robot_launch.launch port:="<--YOUR-PORT-->"
 ``` 
 
 ## Authors
