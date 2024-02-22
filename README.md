@@ -52,11 +52,16 @@ I drew inspiration to design this robot from my experience with 3D printers. Con
 
 ## Component
 ### Hardware
-* Arduino Mega 2560
-* 50K Potentiometer
-* KY-040 Rotary Encoder (WH-040)
-* DRV8825 Stepper motor driver board (2 motors)
-* Power supply
+
+| equipment | Amount |
+| --- | --- |
+| Arduino Mega 2560 | 1 |
+| 50K Potentiometer | 1 |
+| KY-040 Rotary Encoder (WH-040) | 1 |
+| DRV8825 Stepper motor driver board | 2 |
+| ball screw hiwin | 2 |
+| Power supply  | 1 |
+
 ### Software
 * Ubuntu 20.04
 * ROS Noetic 
@@ -67,6 +72,7 @@ I drew inspiration to design this robot from my experience with 3D printers. Con
 ### Installing
 * Visual Studio Code
   - install CustomTkinter-Snippets V2.0.0
+  - install customtkinter using command `pip3 install customtkinter`
 * Arduino IDE
 
 ### Creating package
@@ -132,6 +138,23 @@ For example my serial port is USB0 then it will be `roslaunch robot_description 
 ```
 $ roslaunch robot_description robot_launch.launch port:="<--YOUR-PORT-->"
 ``` 
+### About GUI
+
+Config your position on Gui:
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/gui_config.jpg" width=35% height=35%>
+
+The data will show on the interface Gui as [x,y] input:
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/gui_input.jpg" width=35% height=35%>
+
+Submit your data and send data to control Stepmotor:
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/gui_position.jpg" width=35% height=35%>
+
+The [x,y] posotion will show return result from arduino:
+
+<img src="https://github.com/Phansa-R/PS_ROS_mini_project/blob/main/cad_picture/gui_submit.jpg" width=35% height=35%>
 
 ## Authors
 ### Member Team 
