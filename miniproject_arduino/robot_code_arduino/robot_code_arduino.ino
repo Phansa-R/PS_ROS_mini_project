@@ -11,11 +11,14 @@
 ros::NodeHandle  nh;
 std_msgs::Int16 encoderData;
 std_msgs::Int16 potenData;
+std_msgs::Int16 POX;
+std_msgs::Int16 POY;
 
 
-
-const int stepPin = 3; 
-const int dirPin = 2; 
+const int stepPinX = 9; 
+const int dirPinX = 10; 
+const int stepPinY = 12; 
+const int dirPinY = 11; 
 
 const int numReadings = 10; 
 int readings[numReadings]; 
@@ -23,17 +26,108 @@ int index = 0;
 int total = 0; 
 ros::Publisher Encodepub("Topic_Feedback_encode", &encoderData );
 ros::Publisher Potenpub("Topic_Feedback_poten", &potenData );
+ros::Publisher POXpub("Topic_Feedback_UaltraY", &POX );
+ros::Publisher POYpub("Topic_Feedback_UaltraX", &POY );
 
-
+int valueXOLD = 0;
+int PoX = 0;
+int valueYOLD = 0;
+int PoY = 0;
 void GuiXcontrol(const std_msgs::Float32& cmd_msgX)
 {
   int valueX = cmd_msgX.data;
-  
+  if(valueX > valueXOLD)
+  {
+    PoX = valueX - valueXOLD;
+      digitalWrite(dirPinX,HIGH);
+    for(int x = 0; x < PoX; x++) 
+    {
+      for(int x = 0; x < 580; x++) 
+    {
+      digitalWrite(stepPinX,HIGH); 
+      delayMicroseconds(500); 
+      digitalWrite(stepPinX,LOW); 
+      delayMicroseconds(500); 
+    }
+    /// ส่งข้อมูลเข้าทอปปิก
+  POX.data = valueXOLD + x + 1;
+  POXpub.publish(&POX);
+    nh.spinOnce();
+     delay(1000);
+    } 
+    valueXOLD = valueX;
+  }
+    if(valueX < valueXOLD)
+  {
+    PoX = valueXOLD - valueX ;
+      digitalWrite(dirPinX,LOW);
+    for(int x = 0; x < PoX; x++) 
+    {
+      for(int x = 0; x < 580; x++) 
+    {
+      digitalWrite(stepPinX,HIGH); 
+      delayMicroseconds(500); 
+      digitalWrite(stepPinX,LOW); 
+      delayMicroseconds(500); 
+    }
+    /// ส่งข้อมูลเข้าทอปป
+  POX.data = valueXOLD - x -1;
+  POXpub.publish(&POX);
+     nh.spinOnce();
+     delay(1000);
+    } 
+    valueXOLD = valueX;
+  }
+
 }
+    
+
 
 void GuiYcontrol(const std_msgs::Float32& cmd_msgY)
 {
-  int valueY = cmd_msgY.data;
+ int valueY = cmd_msgY.data;
+  if(valueY > valueYOLD)
+  {
+    PoY = valueY - valueYOLD;
+      digitalWrite(dirPinY,HIGH);
+    for(int x = 0; x < PoY; x++) 
+    {
+      for(int x = 0; x < 580; x++) 
+    {
+      digitalWrite(stepPinY,HIGH); 
+      delayMicroseconds(500); 
+      digitalWrite(stepPinY,LOW); 
+      delayMicroseconds(500); 
+    }
+    /// ส่งข้อมูลเข้าทอปปิก
+    POY.data = valueYOLD + x + 1;
+  POYpub.publish(&POY);
+    nh.spinOnce();
+     delay(1000);
+    } 
+    valueYOLD = valueY;
+  }
+    if(valueY < valueYOLD)
+  {
+    PoY = valueYOLD - valueY ;
+      digitalWrite(dirPinY,LOW);
+    for(int x = 0; x < PoY; x++) 
+    {
+      for(int x = 0; x < 580; x++) 
+    {
+      digitalWrite(stepPinY,HIGH); 
+      delayMicroseconds(500); 
+      digitalWrite(stepPinY,LOW); 
+      delayMicroseconds(500); 
+    }
+    /// ส่งข้อมูลเข้าทอปป
+    POY.data = valueYOLD - x - 1;
+    POYpub.publish(&POY);
+    nh.spinOnce();
+    delay(1000);
+    } 
+    valueYOLD = valueY;
+  }
 }
 
 ros::Subscriber<std_msgs::Float32> GuiXsub("Topic_DataXFrom_Gui", &GuiXcontrol);
@@ -55,12 +149,15 @@ void setup()
    pinMode(clearButton, INPUT_PULLUP);
    attachInterrupt(0, doEncoderA, CHANGE); 
    attachInterrupt(1, doEncoderB, CHANGE); 
-   pinMode(stepPin,OUTPUT); 
-   pinMode(dirPin,OUTPUT);
+   pinMode(stepPinX,OUTPUT); 
+   pinMode(dirPinX,OUTPUT);
+   pinMode(stepPinY,OUTPUT); 
+   pinMode(dirPinY,OUTPUT);
    nh.initNode();
    nh.advertise(Encodepub);  
    nh.advertise(Potenpub);
-
+   nh.advertise(POXpub);  
+   nh.advertise(POYpub);
    nh.subscribe(GuiXsub);
    nh.subscribe(GuiYsub);
 
@@ -76,37 +173,37 @@ void loop() {
 if(sum != average)
 {
   float X=0;
-  if(average<17)
-  {
-    X=3;
-  }
-  else if(average<17+17)
-  {
-    X=2;
-  }
-  else if(average<17+17+17)
-  {
-    X=1;
-  }
-  else if(average<17+17+17+17)
+  if(average<15)
   {
     X=0;
   }
-   else if(average<17+17+17+17+17)
+  else if(average<15+15)
   {
-    X=-1;
+    X=1;
   }
-   else if(average<17+17+17+17+17+17)
+  else if(average<15+15+15)
   {
-    X=-2;
+    X=2;
   }
-  else if(average<17+17+17+17+17+17+17)
+  else if(average<15+15+15+15)
   {
-    X=-3;
+    X=3;
+  }
+   else if(average<15+15+15+15+15)
+  {
+    X=4;
+  }
+   else if(average<15+15+15+15+15+15)
+  {
+    X=5;
+  }
+  else if(average<15+15+15+15+15+15+15)
+  {
+    X=6;
   }
   else
   {
-    X=-3;
+    X=7;
   }
   potenData.data = X;
   Potenpub.publish(&potenData);
@@ -125,35 +222,35 @@ rotating = true;  // reset the debouncer
     float Y=0;
       if(encoderPos<2)
   {
-    Y=3;
+    Y=0;
   }
   else if(encoderPos<4)
   {
-    Y=2;
+    Y=1;
   }
   else if(encoderPos<6)
   {
-    Y=1;
+    Y=2;
   }
   else if(encoderPos<8)
   {
-    Y=0;
+    Y=3;
   }
    else if(encoderPos<10)
   {
-    Y=-1;
+    Y=4;
   }
    else if(encoderPos<12)
   {
-    Y=-2;
+    Y=5;
   }
   else if(encoderPos<14)
   {
-    Y=-3;
+    Y=6;
   }
   else
   {
-    Y=-3;
+    Y=7;
   }
     
     encoderData.data = Y;
