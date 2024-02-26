@@ -98,14 +98,48 @@ $ catkin_make
 * Connect Potentiometer into Arduino using A0 pin on Arduino
   - (+) to 5V
   - GND to GND
-* Connect Stepper motor
-  - Power supply into Driver Board
+
+• Connect Potentiometer into Arduino Maga using A5 pin on Arduino Mega
+* Connect Encoder into Arduino Maga
+    - DT to 2
+    - CLK to 3
+    - SW to 8
+    - (+) to 5V
+    - GND to GND
+* Connect Stepper X
+  * Stepper Driver Board
+    - Jump SLP and RST
+    - V.ref tunning
+  * Power supply into Driver Board
     - Power supply 12V to VMOD
     - GND to GND
-  - Stepper into Driver Board
+  * Stepper into Driver Board
     - A(Black) to 2A
-* Schematic diagram
-
+    - A-(Green) to 1A
+    - B-(Blue) to 1B
+    - B(Red) to 2B
+  * Driver Board into Arduino
+    - DIR to 22
+    - STP to 24
+    - FLT to 5V
+    - GND to GND
+* Connect Stepper Y
+  * Stepper Driver Board
+    - Jump SLP and RST
+    - V.ref tunning
+  * Power supply into Driver Board
+    - Power supply 12V to VMOD
+    - GND to GND
+  * Stepper Driver Board
+    - A(Black) to 2A
+    - A-(Green) to 1A
+    - B-(Blue) to 1B
+    - B(Red) to 2B
+  * Driver Board into Arduino
+    - DIR to 32
+    - STP to 34
+    - FLT to 5V
+    - GND to GND
   
 ### Software Ros workspace
 Start a master node in a new terminal:
